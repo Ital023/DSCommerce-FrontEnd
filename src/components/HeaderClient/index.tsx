@@ -1,4 +1,6 @@
+import './styles.css'
 import cartIcon from '../../assets/cart.svg'
+
 
 export default function HeaderClient() {
     return (
@@ -8,7 +10,7 @@ export default function HeaderClient() {
         <div className="dsc-navbar-right">
           <div className="dsc-menu-items-container">
             <div className="dsc-menu-item">
-              <img src={cartIcon} alt="Carrinho de compras" />
+              <img src={cartIcon} alt="Carrinho de compras"/>
             </div>
           </div>
           <a href="#">Entrar</a>
