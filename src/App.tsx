@@ -10,7 +10,7 @@ export default function App() {
   const [contextCartCount, setContextCartCount] = useState<number>(0);
 
   return (
-    <ContextCartCount.Provider value={contextCartCount, setContextCartCount}>
+    <ContextCartCount.Provider value={{contextCartCount, setContextCartCount}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ClientHome />}>
