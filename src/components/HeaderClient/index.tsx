@@ -11,11 +11,11 @@ export default function HeaderClient() {
         </Link>
         <div className="dsc-navbar-right">
           <div className="dsc-menu-items-container">
-            <div className="dsc-menu-item">
-              <Link to={"/cart"}>
+            <Link to={"/cart"}>
+              <div className="dsc-menu-item">
                 <CartIcon />
-              </Link>
-            </div>
+              </div>
+            </Link>
           </div>
 
           <Link to={"/login"}>
