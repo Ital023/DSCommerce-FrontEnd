@@ -2,6 +2,7 @@ import { useState } from "react";
 import { loginRequest } from "../../../services/auth-service";
 import "./styles.css"
 import { CredentialsDTO } from "../../../models/auth";
+import * as authService from "../../../services/auth-service";
 
 export default function Login() {
 
@@ -13,7 +14,13 @@ export default function Login() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleSubmit(event: any) {
     event.preventDefault();
-    loginRequest(formData);
+    authService.loginRequest(formData)
+    .then(response => {
+      console.log(response.data);
+    }).catch(error => {
+      console.log("Erro no login", error);
+      
+    })
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
