@@ -6,14 +6,21 @@ import { CredentialsDTO } from "../../../models/auth";
 export default function Login() {
 
   const[formData, setFormData] = useState<CredentialsDTO>({
-    username: "",
-    password: ""
+    username: '',
+    password: ''
   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleSubmit(event: any) {
     event.preventDefault();
     loginRequest(formData);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function handleInputChange(event: any) {
+    const value = event.target.value;
+    const name = event.target.name;
+    setFormData({...formData, [name]: value});
   }
 
   return (
@@ -28,6 +35,8 @@ export default function Login() {
                   className="dsc-form-control"
                   type="text"
                   placeholder="Email"
+                  name="username"
+                  onChange={handleInputChange}
                 />
                 <div className="dsc-form-error"></div>
               </div>
@@ -36,6 +45,9 @@ export default function Login() {
                   className="dsc-form-control"
                   type="password"
                   placeholder="Senha"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
