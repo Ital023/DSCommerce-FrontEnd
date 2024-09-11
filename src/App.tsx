@@ -46,7 +46,7 @@ export default function App() {
               <Route path="login" element={<Login />} />
               <Route
                 path="confirmation/:orderId"
-                element={<Confirmation />}
+                element={<PrivateRoute><Confirmation /></PrivateRoute>}
               />
             </Route>
 

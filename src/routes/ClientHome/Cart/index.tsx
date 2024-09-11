@@ -1,13 +1,17 @@
 import { useContext, useState } from "react";
 import "./styles.css";
 import * as cartService from "../../../services/cart-service";
+import * as orderService from "../../../services/order-service"
 import { OrderDTO } from "../../../models/order";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonPrimary from "../../../components/ButtonPrimary";
 import ButtonInverse from "../../../components/ButtonInverse";
 import { ContextCartCount } from "../../../utils/context-cart";
 
 export default function Cart() {
+
+  const navigate = useNavigate();
+
   const [cart, setCart] = useState<OrderDTO>(cartService.getCart());
 
   const {setContextCartCount} = useContext(ContextCartCount);
@@ -32,6 +36,15 @@ export default function Cart() {
     const newCart = cartService.getCart(); 
     setCart(newCart);
     setContextCartCount(newCart.items.length);
+  }
+
+  function handlePlaceOrderClick() {
+    orderService.placeOrderRequest(cart)
+      .then(response => {
+        cartService.clearCart();
+        setContextCartCount(0);
+        navigate(`/confirmation/${response.data.id}`)
+      })
   }
 
 
@@ -75,7 +88,11 @@ export default function Cart() {
         )}
 
         <div className="dsc-btn-page-container">
+
+          <div onClick={handlePlaceOrderClick}>
           <ButtonPrimary text="Finalizar pedido" />
+          </div>
+
           <Link to={"/catalog"}>
             <ButtonInverse text="Continuar comprando" />
           </Link>
