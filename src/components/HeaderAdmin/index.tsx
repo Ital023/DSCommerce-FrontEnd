@@ -2,6 +2,7 @@ import "./styles.css";
 import homeImg from "../../assets/home.svg"
 import productsImg from "../../assets/products.svg"
 import LoggedUser from "../LoggedUser";
+import { NavLink } from "react-router-dom";
 
 export default function HeaderAdmin() {
   return (
@@ -11,14 +12,20 @@ export default function HeaderAdmin() {
         <div className="dsc-navbar-right">
           
           <div className="dsc-menu-items-container">
+            <NavLink to={"/admin/home"} className={({isActive}) => isActive ? "dsc-menu-item-active" : ""}>
             <div className="dsc-menu-item">
               <img src={homeImg} alt="Início" />
               <p>Início</p>
             </div>
+            </NavLink>
+            
+            <NavLink to={"/admin/products"} className={({isActive}) => isActive ? "dsc-menu-item-active" : ""}>
             <div className="dsc-menu-item">
               <img src={productsImg} alt="Cadastro de produtos" />
-              <p className="dsc-menu-item-active">Produtos</p>
+              <p>Produtos</p>
             </div>
+            </NavLink>
+
           </div>
           <div className="dsc-logged-user">
             <LoggedUser />
