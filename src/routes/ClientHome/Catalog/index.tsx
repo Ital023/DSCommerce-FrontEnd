@@ -5,11 +5,7 @@ import ButtonNextPage from "../../../components/ButtonNextPage";
 import { useEffect, useState } from "react";
 import { ProductDTO } from "../../../models/product";
 import * as productService from "../../../services/product-service";
-
-type QueryParams = {
-  page: number;
-  name: string;
-};
+import { QueryParams } from "../../../models/queryParams";
 
 export default function Catalog() {
   const [isLast, setIsLast] = useState(false);
