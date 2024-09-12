@@ -7,6 +7,7 @@ import { ProductDTO } from "../../../models/product";
 import * as productService from "../../../services/product-service"
 import SearchBar from "../../../components/SearchBar";
 import ButtonNextPage from "../../../components/ButtonNextPage";
+import DialogInfo from "../../../components/DialogInfo";
 
 export default function ProductListing() {
 
@@ -104,6 +105,7 @@ export default function ProductListing() {
           <ButtonNextPage onNextPage={handleNextPageClick}/>
         }
       </section>
+      <DialogInfo />
     </main>
   );
 }
