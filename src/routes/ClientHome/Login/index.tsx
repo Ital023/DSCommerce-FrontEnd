@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import "./styles.css";
-import { CredentialsDTO } from "../../../models/auth";
 import * as authService from "../../../services/auth-service";
 import { useNavigate } from "react-router-dom";
 import { ContextToken } from "../../../utils/context-token";
+import FormInput from "../../../components/FormInput";
 
 export default function Login() {
   const { setContextTokenPayload } = useContext(ContextToken);
@@ -64,23 +64,17 @@ export default function Login() {
             <h2>Login</h2>
             <div className="dsc-form-controls-container">
               <div>
-                <input
+                <FormInput
+                {...formData.username}
                   className="dsc-form-control"
-                  type="text"
-                  placeholder="Email"
-                  name="username"
-                  value={formData.username.value}
                   onChange={handleInputChange}
                 />
                 <div className="dsc-form-error"></div>
               </div>
               <div>
-                <input
+                <FormInput
+                {...formData.password}
                   className="dsc-form-control"
-                  type="password"
-                  placeholder="Senha"
-                  name="password"
-                  value={formData.password.value}
                   onChange={handleInputChange}
                 />
               </div>
