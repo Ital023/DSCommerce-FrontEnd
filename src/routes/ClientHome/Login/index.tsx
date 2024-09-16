@@ -1,40 +1,59 @@
 import { useContext, useState } from "react";
-import "./styles.css"
+import "./styles.css";
 import { CredentialsDTO } from "../../../models/auth";
 import * as authService from "../../../services/auth-service";
 import { useNavigate } from "react-router-dom";
 import { ContextToken } from "../../../utils/context-token";
 
 export default function Login() {
-
-  const { setContextTokenPayload } = useContext(ContextToken)
+  const { setContextTokenPayload } = useContext(ContextToken);
 
   const navigate = useNavigate();
 
-  const[formData, setFormData] = useState<CredentialsDTO>({
-    username: '',
-    password: ''
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [formData, setFormData] = useState<any>({
+    username: {
+      value: "",
+      id: "username",
+      name: "username",
+      type: "text",
+      placeholder: "Email",
+      validation: function (value: string) {
+        return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+          value.toLowerCase()
+        );
+      },
+      message: "Favor informar um email válido",
+    },
+    password: {
+      value: "",
+      id: "password",
+      name: "password",
+      type: "password",
+      placeholder: "Senha",
+    },
   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleSubmit(event: any) {
     event.preventDefault();
-    authService.loginRequest(formData)
-    .then(response => {
-      authService.saveAccessToken(response.data.access_token);
-      setContextTokenPayload(authService.getAccessTokenPayload());
-      navigate("/cart");
-    }).catch(error => {
-      console.log("Erro no login", error);
-      
-    })
+    authService
+      .loginRequest({username: formData.username.value, password: formData.password.value})
+      .then((response) => {
+        authService.saveAccessToken(response.data.access_token);
+        setContextTokenPayload(authService.getAccessTokenPayload());
+        navigate("/cart");
+      })
+      .catch((error) => {
+        console.log("Erro no login", error);
+      });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleInputChange(event: any) {
     const value = event.target.value;
     const name = event.target.name;
-    setFormData({...formData, [name]: value});
+    setFormData({ ...formData, [name]: {...formData[name], value: value} });
   }
 
   return (
@@ -50,6 +69,7 @@ export default function Login() {
                   type="text"
                   placeholder="Email"
                   name="username"
+                  value={formData.username.value}
                   onChange={handleInputChange}
                 />
                 <div className="dsc-form-error"></div>
@@ -60,7 +80,7 @@ export default function Login() {
                   type="password"
                   placeholder="Senha"
                   name="password"
-                  value={formData.password}
+                  value={formData.password.value}
                   onChange={handleInputChange}
                 />
               </div>
