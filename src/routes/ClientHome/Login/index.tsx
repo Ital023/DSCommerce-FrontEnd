@@ -54,7 +54,11 @@ export default function Login() {
   function handleInputChange(event: any) {
     const value = event.target.value;
     const name = event.target.name;
-    setFormData(forms.update(formData, name, value));
+    setFormData(forms.updateAndValidate(formData, name, value));
+  }
+
+  function handleTurnDirty(name: string) {
+    setFormData(forms.dirtyAndValidate(formData, name));
   }
 
   return (
@@ -69,6 +73,7 @@ export default function Login() {
                 {...formData.username}
                   className="dsc-form-control"
                   onChange={handleInputChange}
+                  onTurnDirty={handleTurnDirty}
                 />
                 <div className="dsc-form-error"></div>
               </div>
@@ -77,6 +82,7 @@ export default function Login() {
                 {...formData.password}
                   className="dsc-form-control"
                   onChange={handleInputChange}
+                  onTurnDirty={handleTurnDirty}
                 />
               </div>
             </div>

@@ -40,23 +40,18 @@ export default function ProductForm() {
   });
 
   function handleTurnDirty(name: string) {
-    const newFormData = forms.toDirty(formData, name);
+    const newFormData = forms.dirtyAndValidate(formData, name);
     setFormData(newFormData);
   }
 
   function handleInputChange(event: any) {
     const value = event.target.value;
     const name = event.target.name;
-    const dataUpdated = forms.update(formData, name, value);
-    const dataValidated = forms.validate(dataUpdated, name);
-    setFormData(dataValidated);
+    const result = forms.updateAndValidate(formData, name, value);
+    setFormData(result);
   }
 
   useEffect(() => {
-    const result = forms.toDirty(formData, "price");
-    console.log(result);
-    
-
     if (isEditing) {
       productService.findById(Number(params.productId)).then((response) => {
         const newFormData = forms.updateAll(formData, response.data);
