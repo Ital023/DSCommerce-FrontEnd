@@ -9,6 +9,7 @@ import FormTextArea from "../../../components/FormTextArea";
 import { CategoryDTO } from "../../../models/category";
 import * as categoryService from "../../../services/category-service"
 import FormSelect from "../../../components/FormSelect";
+import { selectStyles } from "../../../utils/select";
 
 export default function ProductForm() {
   const params = useParams();
@@ -82,6 +83,12 @@ export default function ProductForm() {
     setFormData(result);
   }
 
+  function handleSubmit(event: any) {
+    event.preventDefault();
+    console.log(forms.toValues(formData));
+    
+  }
+
   useEffect(()=>{
     categoryService.findAllRequest()
       .then(response => {        
@@ -103,7 +110,7 @@ export default function ProductForm() {
     <main>
       <section id="product-form-section" className="dsc-container">
         <div className="dsc-product-form-container">
-          <form className="dsc-card dsc-form">
+          <form className="dsc-card dsc-form" onSubmit={handleSubmit}>
             <h2>Dados do produto</h2>
             <div className="dsc-form-controls-container">
               <div>
@@ -137,9 +144,10 @@ export default function ProductForm() {
               <FormSelect 
               {...formData.categories}
               options={categories} 
-              className="dsc-form-control"
+              className="dsc-form-control dsc-form-select-container"
               onTurnDirty={handleTurnDirty}
               isMulti
+              styles={selectStyles}
               getOptionLabel={((obj: any) => obj.name)}
               getOptionValue={(obj: any) => String(obj.id)}
               onChange={((obj: any) => {

@@ -89,6 +89,10 @@ export default function ProductListing() {
     navigate("/admin/products/create");
   }
 
+  function handleUpdateClick(productId: number) {
+    navigate(`/admin/products/${productId}`)
+  }
+
   return (
     <main>
       <section id="product-listing-section" className="dsc-container">
@@ -133,6 +137,7 @@ export default function ProductListing() {
                   className="dsc-product-listing-btn"
                   src={editIcon}
                   alt="Editar"
+                  onClick={()=> handleUpdateClick(product.id)}
                 />
               </td>
               <td>

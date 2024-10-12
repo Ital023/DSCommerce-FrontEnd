@@ -52,3 +52,10 @@ export function dirtyAndValidate(inputs: any, name: string) {
 export function toDirty(inputs: any, name: string) {
     return {...inputs, [name]: {...inputs[name], dirty: "true"}};
 }
+
+
+export function toDirtyAll(inputs: any) {
+    const newInputs: any = {};
+    
+    for(var name in inputs)
+}
